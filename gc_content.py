@@ -41,12 +41,18 @@ def at_content(seq):
 
 
 def main():
+    total_gc = 0;
+    total_len = 0;
     if len(sys.argv) != 2:
         print(__doc__)
         sys.exit(1)
     for name, seq in read_fasta(sys.argv[1]):
         print(f"{name}\tGC = {100 * gc_content(seq):.1f}%, AT = {100 * at_content(seq):.1f}%")
         print("sequence length:", len([b for b in seq if b in "ACGT"]))
+        total_gc += gc_content(seq)* len([b for b in seq if b in "ACGT"])
+        total_len += len([b for b in seq if b in "ACGT"])
+    mean_gc = total_gc/total_len
+    print(f"mean GC% across all samples= {100 * mean_gc:.1f}%")
 
 
 if __name__ == "__main__":
