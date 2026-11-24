@@ -4,3 +4,4 @@
 *.term
 
 #Python
+results/
